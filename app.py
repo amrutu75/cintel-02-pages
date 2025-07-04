@@ -1,8 +1,7 @@
 from shiny import App, ui, render
-from shinywidgets import render_plotly, render_data_frame
+from palmerpenguins import load_penguins
 import seaborn as sns
 import matplotlib.pyplot as plt
-from palmerpenguins import load_penguins
 
 # Load data
 penguins_df = load_penguins()
@@ -26,17 +25,8 @@ app_ui = ui.page_fluid(
             )
         ),
         ui.layout_columns(
-            ui.output_data_frame("data_table"),
-            ui.output_data_frame("data_grid")
-        ),
-        ui.layout_columns(
-            ui.output_widget("plotly_histogram"),
-            ui.output_plot("seaborn_histogram"),
-            ui.card(
-                ui.card_footer("Plotly Scatterplot: Penguin Species"),
-                ui.output_widget("plotly_scatterplot"),
-                full_screen=True
-            )
+            ui.output_table("data_table"),
+            ui.output_table("data_grid")
         ),
         ui.hr(),
         ui.a("GitHub", href="https://github.com/amrutu75/cintel-02-pages", target="_blank")
@@ -46,14 +36,15 @@ app_ui = ui.page_fluid(
 # Server
 def server(input, output, session):
     @output
-    @render_data_frame
+    @render.table
     def data_table():
         return penguins_df
 
     @output
-    @render_data_frame
+    @render.table
     def data_grid():
         return penguins_df
 
 # App
 app = App(app_ui, server)
+        

@@ -32,7 +32,7 @@ app_ui = ui.page_fluid(
         ),
         output_widget("plotly_histogram"),
         ui.output_plot("seaborn_histogram"),
-        output_widget("plotly_scatterplot"),  # ✅ Added scatter plot to UI
+        output_widget("plotly_scatterplot"),  
         ui.hr(),
         ui.a("GitHub", href="https://github.com/amrutu75/cintel-02-pages", target="_blank")
     )
